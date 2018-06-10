@@ -8,7 +8,7 @@ public class LibraryRead {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj isbn");
         String isbn = scanner.next();
-        bookDao.read(bookDao.findBooksId(isbn));
+        bookDao.readByISBN(isbn);
     }
 
     public static void readAllBooks() throws SQLException, ClassNotFoundException {

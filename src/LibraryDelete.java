@@ -8,7 +8,6 @@ public class LibraryDelete {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj isbn");
         String isbn = scanner.next();
-        System.out.println(bookDao.findBooksId(isbn));
-        bookDao.delete(bookDao.findBooksId(isbn));
+        bookDao.deleteByISBN(isbn);
     }
 }

@@ -64,14 +64,36 @@ public class BookDao {
         return null;
     }
 
+    public Book readByISBN(String isbn) {
+        final String sql = "select id, title, author, year, isbn from books where isbn=?";
+        try {
+            PreparedStatement prepStmt = connection.prepareStatement(sql);
+            prepStmt.setString(1, isbn);
+            ResultSet result = prepStmt.executeQuery();
+            if (result.next()) {
+                Book book = new Book();
+                book.setId(result.getLong("id"));
+                book.setTitle(result.getString("title"));
+                book.setAuthor(result.getString("author"));
+                book.setYear(result.getInt("year"));
+                book.setIsbn(result.getString("isbn"));
+                return book;
+            }
+        } catch (SQLException e) {
+            System.out.println("Could not get book");
+        }
+        return null;
+    }
+
     public void update(Book book) {
-        final String sql = "update books set title=?, author=?, year=?, isbn=?";
+        final String sql = "update books set title=?, author=?, year=?, isbn=? where id=?";
         try {
             PreparedStatement prepStmt = connection.prepareStatement(sql);
             prepStmt.setString(1, book.getTitle());
             prepStmt.setString(2, book.getAuthor());
             prepStmt.setInt(3, book.getYear());
             prepStmt.setString(4, book.getIsbn());
+            prepStmt.setLong(5, book.getId());
             prepStmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Could not update book");
@@ -89,7 +111,18 @@ public class BookDao {
         }
     }
 
-    public long findBooksId(String isbn){
+    public void deleteByISBN(String isbn) {
+        final String sql = "delete from books where isbn=?";
+        try {
+            PreparedStatement prepStmt = connection.prepareStatement(sql);
+            prepStmt.setString(1, isbn);
+            prepStmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Could not delete row");
+        }
+    }
+
+    /*public long findBooksId(String isbn){
         final String sql = "select id from books where isbn=?";
         try {
             PreparedStatement prepStmt = connection.prepareStatement(sql);
@@ -100,7 +133,7 @@ public class BookDao {
             System.out.println("Could not find book");
             return 0;
         }
-    }
+    }*/
 
     public List<Book> readAll() {
         final String sql = "select id, title, author, year, isbn from books";
