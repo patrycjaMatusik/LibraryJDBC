@@ -1,3 +1,7 @@
+package application;
+
+import dao.*;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -23,6 +27,8 @@ public class Library {
                 LibraryUpdate.updateBook();
                 System.out.println("\n");
                 break;
+            /*case 5:
+                LibrarySave.findID();*/
             default:
                 System.out.println("Wybierz opcję z listy.");
         }

@@ -1,3 +1,7 @@
+package dao;
+
+import model.Book;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +40,11 @@ public class BookDao {
             prepStmt.setString(2, book.getAuthor());
             prepStmt.setInt(3, book.getYear());
             prepStmt.setString(4, book.getIsbn());
-            prepStmt.executeUpdate();
+            if(prepStmt.executeUpdate()==0){
+                System.out.println("Dodawanie książki nie powiodło się.");
+            }else{
+                System.out.println("Książka została dodana do bazy.");
+            }
         } catch (SQLException e) {
             System.out.println("Could not save record");
             e.printStackTrace();
@@ -94,7 +102,11 @@ public class BookDao {
             prepStmt.setInt(3, book.getYear());
             prepStmt.setString(4, book.getIsbn());
             prepStmt.setLong(5, book.getId());
-            prepStmt.executeUpdate();
+            if(prepStmt.executeUpdate()==0){
+                System.out.println("Brak książki w bazie danych.");
+            }else{
+                System.out.println("Dane książki zostały zaktualizowane.");
+            }
         } catch (SQLException e) {
             System.out.println("Could not update book");
         }
@@ -105,7 +117,11 @@ public class BookDao {
         try {
             PreparedStatement prepStmt = connection.prepareStatement(sql);
             prepStmt.setLong(1, id);
-            prepStmt.executeUpdate();
+            if(prepStmt.executeUpdate()==0){
+                System.out.println("Brak książki o podanym ID.");
+            }else{
+                System.out.println("Książka została usunięta.");
+            }
         } catch (SQLException e) {
             System.out.println("Could not delete row");
         }
@@ -116,7 +132,11 @@ public class BookDao {
         try {
             PreparedStatement prepStmt = connection.prepareStatement(sql);
             prepStmt.setString(1, isbn);
-            prepStmt.executeUpdate();
+            if(prepStmt.executeUpdate()==0){
+                System.out.println("Brak książki o podanym ISBN.");
+            }else{
+                System.out.println("Książka została usunięta.");
+            }
         } catch (SQLException e) {
             System.out.println("Could not delete row");
         }

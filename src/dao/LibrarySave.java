@@ -1,3 +1,6 @@
+package dao;
+
+import model.Book;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -18,5 +21,14 @@ public class LibrarySave {
         Book book = new Book(title, author, year, isbn);
         bookDao.save(book);
     }
+
+    /*public static void findID() throws SQLException, ClassNotFoundException {
+        BookDao bookDao = new BookDao();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj isbn");
+        String isbn = scanner.next();
+        long id = bookDao.findBooksId(isbn);
+        System.out.println(id);
+    }*/
 }
 
